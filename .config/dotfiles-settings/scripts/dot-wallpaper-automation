@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#     _         _         __        ______
+#    / \  _   _| |_ ___   \ \      / /  _ \
+#   / _ \| | | | __/ _ \   \ \ /\ / /| |_) |
+#  / ___ \ |_| | || (_) |   \ V  V / |  __/
+# /_/   \_\__,_|\__\___/     \_/\_/  |_|
+#
+
+dot_cache_folder="$HOME/.cache/dotfiles/hyprland-dotfiles"
+
+# Notifications
+source "$HOME/.config/dotfiles-settings/scripts/dot-notification-handler"
+APP_NAME="Waypaper"
+NOTIFICATION_ICON="preferences-desktop-wallpaper-symbolic"
+
+sec=$(cat ~/.config/dotfiles-settings/settings/wallpaper-automation)
+_setWallpaperRandomly() {
+    $HOME/.config/dotfiles-settings/scripts/dot-wallpaper --random
+    echo ":: Next wallpaper in $sec seconds..."
+    sleep $sec
+    _setWallpaperRandomly
+}
+
+if [ ! -f $dot_cache_folder/wallpaper-automation ]; then
+    touch $dot_cache_folder/wallpaper-automation
+    echo ":: Start wallpaper automation script"
+    notify_user \
+        --a "${APP_NAME}" \
+        --i "${NOTIFICATION_ICON}" \
+        --m "Wallpaper automation process started.\nWallpaper will be changed every $sec seconds."
+    _setWallpaperRandomly
+else
+    rm $dot_cache_folder/wallpaper-automation
+    notify_user \
+        --a "${APP_NAME}" \
+        --i "${NOTIFICATION_ICON}" \
+        --m "Wallpaper automation process stopped."
+    echo ":: Wallpaper automation script process $wp stopped"
+    wp=$(pgrep -f dot-wallpaper-automation)
+    kill -KILL $wp
+fi

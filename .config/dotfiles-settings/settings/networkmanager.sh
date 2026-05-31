@@ -1,0 +1,1 @@
+$(cat ~/.config/dotfiles-settings/settings/terminal.sh) --class dotfiles-floating -e ~/.config/dotfiles-settings/scripts/dot-network

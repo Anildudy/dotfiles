@@ -17,26 +17,26 @@ alias shutdown='systemctl poweroff'
 alias v='$EDITOR'
 alias vim='$EDITOR'
 alias wifi='nmtui'
-alias arch-cleanup='~/.config/ml4w/scripts/arch/cleanup.sh'
-alias apps='~/.config/ml4w/bin/ml4w-apps'
-alias screenshot='~/.config/ml4w/bin/ml4w-screenshot'
-alias updates='~/.config/ml4w/scripts/ml4w-install-system-updates'
-alias filemanager='~/.config/ml4w/settings/filemanager'
+alias arch-cleanup='~/.config/dotfiles-settings/scripts/arch/cleanup.sh'
+alias apps='~/.config/dotfiles-settings/bin/dot-apps'
+alias screenshot='~/.config/dotfiles-settings/bin/dot-screenshot'
+alias updates='~/.config/dotfiles-settings/scripts/dot-install-system-updates'
+alias filemanager='~/.config/dotfiles-settings/settings/filemanager'
 alias lock='hyprlock'
 alias clock='tty-clock'
-alias system='~/.config/ml4w/settings/systemmonitor'
-alias quick='~/.config/ml4w/bin/ml4w-quicklinks'
-alias wallpaper='~/.config/ml4w/bin/ml4w-wallpaper'
-alias settings='ml4w-dotfiles-settings com.ml4w.dotfiles'
+alias system='~/.config/dotfiles-settings/settings/systemmonitor'
+alias quick='~/.config/dotfiles-settings/bin/dot-quicklinks'
+alias wallpaper='~/.config/dotfiles-settings/bin/dot-wallpaper'
+alias settings='dotfiles-settings-app com.dotfiles.dotfiles'
 
 # -----------------------------------------------------
-# ML4W Apps
+# App Apps
 # -----------------------------------------------------
-alias ml4w='qs ipc call welcome toggle'
-alias ml4w-settings='qs -p ~/.local/share/ml4w-dotfiles-settings/quickshell ipc call settings toggle'
-alias ml4w-calendar='qs ipc call calendar toggle'
-alias ml4w-hyprland='flatpak run com.ml4w.hyprlandsettings'
-alias ml4w-sidebar='qs ipc call sidebar toggle'
+alias dot='qs ipc call welcome toggle'
+alias dot-settings='qs -p ~/.local/share/dotfiles-settings-app/quickshell ipc call settings toggle'
+alias dot-calendar='qs ipc call calendar toggle'
+alias dot-hyprland='flatpak run com.dotfiles.hyprlandsettings'
+alias dot-sidebar='qs ipc call sidebar toggle'
 
 # -----------------------------------------------------
 # Git
@@ -55,7 +55,7 @@ alias gcredential="git config credential.helper store"
 # -----------------------------------------------------
 # Scripts
 # -----------------------------------------------------
-alias ascii='~/.config/ml4w/scripts/figlet.sh'
+alias ascii='~/.config/dotfiles-settings/scripts/figlet.sh'
 
 # -----------------------------------------------------
 # System

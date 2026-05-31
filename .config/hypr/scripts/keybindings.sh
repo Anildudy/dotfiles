@@ -15,7 +15,7 @@ config_file=${config_file//source = ~/$([ -d "/home/$USER" ] && echo "/home/$USE
 # -----------------------------------------------------
 # Load Launcher
 # -----------------------------------------------------
-launcher=$(cat $HOME/.config/ml4w/settings/launcher)
+launcher=$(cat $HOME/.config/dotfiles-settings/settings/launcher)
 
 # -----------------------------------------------------
 # Path to keybindings config file

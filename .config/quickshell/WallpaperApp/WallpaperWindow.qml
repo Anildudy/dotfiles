@@ -76,12 +76,12 @@ PanelWindow {
     }
 
     // Default fallback folder just in case the file doesn't exist
-    property string wallpaperFolder: "file://" + Quickshell.env("HOME") + "/.config/ml4w/wallpapers"
+    property string wallpaperFolder: "file://" + Quickshell.env("HOME") + "/.config/dotfiles-settings/wallpapers"
 
     Process {
         id: folderLoader
         // Call cat directly and pass the path as the second array item
-        command: ["cat", Quickshell.env("HOME") + "/.config/ml4w/settings/wallpaper-folder"]
+        command: ["cat", Quickshell.env("HOME") + "/.config/dotfiles-settings/settings/wallpaper-folder"]
         running: true
         
         stdout: StdioCollector {
@@ -103,7 +103,7 @@ PanelWindow {
     }
 
     // --- REUSABLE COMPONENTS ---
-    component ML4WMenuItem: MenuItem {
+    component AppMenuItem: MenuItem {
         id: control
         contentItem: Text {
             text: control.text
@@ -195,31 +195,31 @@ PanelWindow {
                             radius: 8 
                         }
                         
-                        ML4WMenuItem { 
+                        AppMenuItem { 
                             text: "Random Wallpaper"
                             onClicked: {
                                 root.isOpen = false
-                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-wallpaper --random"])
+                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-wallpaper --random"])
                             } 
                         }
                         
-                        ML4WMenuItem { 
+                        AppMenuItem { 
                             text: "Wallpaper Effects"
                             onClicked: {
                                 root.isOpen = false
-                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-wallpaper-effects"])
+                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-wallpaper-effects"])
                             } 
                         }
 
-                        ML4WMenuItem { 
+                        AppMenuItem { 
                             text: "Clear Wallpaper Cache"
                             onClicked: {
                                 root.isOpen = false
-                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-clear-wallpaper-cache"])
+                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-clear-wallpaper-cache"])
                             } 
                         }
 
-                        ML4WMenuItem { 
+                        AppMenuItem { 
                             text: "Reload Images"
                             onClicked: {
                                 folderLoader.running = true;
@@ -361,7 +361,7 @@ PanelWindow {
                             cursorShape: Qt.PointingHandCursor
                             
                             onClicked: {
-                                let scriptPath = Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-wallpaper";
+                                let scriptPath = Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-wallpaper";
                                 Quickshell.execDetached(["bash", "-c", scriptPath + " '" + model.filePath + "'"]);
                             }
                         }

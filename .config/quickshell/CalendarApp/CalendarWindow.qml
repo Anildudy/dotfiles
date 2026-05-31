@@ -115,8 +115,8 @@ PanelWindow {
         }
     }
 
-    // Styled ML4W Button for the "Today" action
-    component ML4WButton: Button {
+    // Styled App Button for the "Today" action
+    component AppButton: Button {
         background: Rectangle {
             color: "transparent"
             border.color: Theme.primary
@@ -256,7 +256,7 @@ PanelWindow {
                     }
                 }
 
-                ML4WButton {
+                AppButton {
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     text: "Today"

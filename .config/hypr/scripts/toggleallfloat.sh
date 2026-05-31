@@ -9,7 +9,7 @@
 hyprctl dispatch workspaceopt allfloat
 
 # Notifications
-source "$HOME/.config/ml4w/scripts/ml4w-notification-handler"
+source "$HOME/.config/dotfiles-settings/scripts/dot-notification-handler"
 
 notify_user \
         --a "System" \

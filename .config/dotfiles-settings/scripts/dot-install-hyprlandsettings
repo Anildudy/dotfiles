@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+echo ":: The script will install the App Hyprland Settings app."
+echo ":: Please note: The app requires Flatpak."
+if gum confirm "Do you want to proceed?"; then
+    dot_app="com.dotfiles.hyprlandsettings"
+    dot_app_repo="hyprland-settings"
+    echo ":: Installing $dot_app"
+    bash -c "$(curl -s https://raw.githubusercontent.com/mylinuxforwork/$dot_app_repo/master/setup.sh)"
+fi

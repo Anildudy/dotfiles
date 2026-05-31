@@ -76,7 +76,7 @@ PanelWindow {
 
     // --- Check if flatpak is installed when window opens ---
     Process {
-        command: ["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-flatpak-installed com.ml4w.hyprlandsettings"]
+        command: ["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-flatpak-installed com.dotfiles.hyprlandsettings"]
         running: root.visible
         
         stdout: StdioCollector {
@@ -88,7 +88,7 @@ PanelWindow {
     }
 
     // --- REUSABLE COMPONENTS ---
-    component ML4WMenuItem: MenuItem {
+    component AppMenuItem: MenuItem {
         id: control
         contentItem: Text {
             text: control.text
@@ -105,7 +105,7 @@ PanelWindow {
         }
     }
 
-    component ML4WButton: Button {
+    component AppButton: Button {
         Layout.fillWidth: true
         background: Rectangle {
             color: "transparent"
@@ -124,7 +124,7 @@ PanelWindow {
         }
     }
 
-    component ML4WSwitch: Switch {
+    component AppSwitch: Switch {
         Layout.alignment: Qt.AlignVCenter
         implicitWidth: 48
         implicitHeight: 26
@@ -200,7 +200,7 @@ PanelWindow {
                 ActionIcon {
                     iconTxt: "󰔎"
                     onClicked: {
-                        Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-toggle-theme"])
+                        Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-toggle-theme"])
                     }
                 }
 
@@ -208,7 +208,7 @@ PanelWindow {
                     iconTxt: "" 
                     onClicked: {
                         root.isOpen = false
-                        Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/settings/hyprpicker.sh"])
+                        Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/settings/hyprpicker.sh"])
                     }
                 }
 
@@ -230,26 +230,26 @@ PanelWindow {
                 Layout.fillWidth: true
                 spacing: 10
                 
-                ML4WButton { 
+                AppButton { 
                     text: "Welcome"
                     onClicked: {
                         root.isOpen = false
                         Quickshell.execDetached(["bash", "-c", "qs ipc call welcome toggle"])
                     }
                 }
-                ML4WButton { 
+                AppButton { 
                     text: "Settings"
                     onClicked: {
                         root.isOpen = false
-                        Quickshell.execDetached(["bash", "-c", "qs -p " + Quickshell.env("HOME") + "/.local/share/ml4w-dotfiles-settings/quickshell ipc call settings toggle"])
+                        Quickshell.execDetached(["bash", "-c", "qs -p " + Quickshell.env("HOME") + "/.local/share/dotfiles-settings-app/quickshell ipc call settings toggle"])
                     }
                 }
-                ML4WButton { 
+                AppButton { 
                     text: "Hyprland"
                     visible: root.isHyprlandSettingsInstalled 
                     onClicked: {
                         root.isOpen = false
-                        Quickshell.execDetached(["bash", "-c", "flatpak run com.ml4w.hyprlandsettings"])
+                        Quickshell.execDetached(["bash", "-c", "flatpak run com.dotfiles.hyprlandsettings"])
                     }
                 }
             }
@@ -575,11 +575,11 @@ PanelWindow {
                         Layout.fillWidth: true
                         Text { text: "Waybar"; color: Theme.on_background; font.family: Theme.fontFamily; font.pixelSize: 16 }
                         Item { Layout.fillWidth: true } 
-                        ML4WSwitch { 
+                        AppSwitch { 
                             id: waybarSwitch
                             property bool ready: false
                             Process {
-                                command: ["bash", "-c", "test -f ~/.config/ml4w/settings/waybar-disabled && echo 0 || echo 1"]
+                                command: ["bash", "-c", "test -f ~/.config/dotfiles-settings/settings/waybar-disabled && echo 0 || echo 1"]
                                 running: root.isOpen 
                                 stdout: StdioCollector {
                                     onStreamFinished: {
@@ -592,8 +592,8 @@ PanelWindow {
                             onClicked: {
                                 if (!ready) return;
                                 let fileCmd = checked 
-                                ? "rm -f ~/.config/ml4w/settings/waybar-disabled"
-                                : "touch ~/.config/ml4w/settings/waybar-disabled"       
+                                ? "rm -f ~/.config/dotfiles-settings/settings/waybar-disabled"
+                                : "touch ~/.config/dotfiles-settings/settings/waybar-disabled"       
                                 console.log("Waybar cmd: " + fileCmd)
                                 Quickshell.execDetached(["bash", "-c", fileCmd + ";" + Quickshell.env("HOME") + "/.config/waybar/launch.sh"])
                             }
@@ -608,16 +608,16 @@ PanelWindow {
                                 padding: 8
                                 
                                 background: Rectangle { color: Theme.background; border.color: Theme.primary; border.width: 1; radius: 8 }
-                                ML4WMenuItem { text: "Select Waybar Theme"; onClicked: {
+                                AppMenuItem { text: "Select Waybar Theme"; onClicked: {
                                         Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/waybar/themeswitcher.sh"])
                                     }
                                 }
-                                ML4WMenuItem { text: "Edit Quicklinks"; onClicked: {
+                                AppMenuItem { text: "Edit Quicklinks"; onClicked: {
                                         root.isOpen = false
-                                        Quickshell.execDetached(["gnome-text-editor", Quickshell.env("HOME") + "/.config/ml4w/settings/waybar-quicklinks.json"])
+                                        Quickshell.execDetached(["gnome-text-editor", Quickshell.env("HOME") + "/.config/dotfiles-settings/settings/waybar-quicklinks.json"])
                                     }
                                 }
-                                ML4WMenuItem { text: "Reload Waybar"; onClicked: {
+                                AppMenuItem { text: "Reload Waybar"; onClicked: {
                                         Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/waybar/launch.sh"])
                                     } 
                                 }
@@ -630,11 +630,11 @@ PanelWindow {
                         Layout.fillWidth: true
                         Text { text: "Dock"; color: Theme.on_background; font.family: Theme.fontFamily; font.pixelSize: 16 }
                         Item { Layout.fillWidth: true }
-                        ML4WSwitch { 
+                        AppSwitch { 
                             id: dockSwitch
                             property bool ready: false
                             Process {
-                                command: ["bash", "-c", "test -f ~/.config/ml4w/settings/dock-disabled && echo 0 || echo 1"]
+                                command: ["bash", "-c", "test -f ~/.config/dotfiles-settings/settings/dock-disabled && echo 0 || echo 1"]
                                 running: root.isOpen 
                                 stdout: StdioCollector {
                                     onStreamFinished: {
@@ -647,8 +647,8 @@ PanelWindow {
                             onClicked: {
                                 if (!ready) return;
                                 let fileCmd = checked 
-                                ? "rm -f ~/.config/ml4w/settings/dock-disabled"
-                                : "touch ~/.config/ml4w/settings/dock-disabled"
+                                ? "rm -f ~/.config/dotfiles-settings/settings/dock-disabled"
+                                : "touch ~/.config/dotfiles-settings/settings/dock-disabled"
                                 console.log("Dock cmd: " + fileCmd)
                                 Quickshell.execDetached(["bash", "-c", fileCmd + "; " + Quickshell.env("HOME") + "/.config/nwg-dock-hyprland/launch.sh"])
                             }
@@ -661,11 +661,11 @@ PanelWindow {
                         Layout.fillWidth: true
                         Text { text: "Gamemode"; color: Theme.on_background; font.family: Theme.fontFamily; font.pixelSize: 16 }
                         Item { Layout.fillWidth: true }
-                        ML4WSwitch { 
+                        AppSwitch { 
                             id: gamemodeSwitch
                             property bool ready: false
                             Process {
-                                command: ["bash", "-c", "test -f ~/.config/ml4w/settings/gamemode-enabled && echo 0 || echo 1"]
+                                command: ["bash", "-c", "test -f ~/.config/dotfiles-settings/settings/gamemode-enabled && echo 0 || echo 1"]
                                 running: root.isOpen 
                                 stdout: StdioCollector {
                                     onStreamFinished: {
@@ -688,11 +688,11 @@ PanelWindow {
                         Layout.fillWidth: true
                         Text { text: "Fastfetch"; color: Theme.on_background; font.family: Theme.fontFamily; font.pixelSize: 16 }
                         Item { Layout.fillWidth: true }
-                        ML4WSwitch { 
+                        AppSwitch { 
                             id: fastfetchSwitch
                             property bool ready: false
                             Process {
-                                command: ["bash", "-c", "test -f ~/.config/ml4w/settings/hide-fastfetch && echo 1 || echo 0"]
+                                command: ["bash", "-c", "test -f ~/.config/dotfiles-settings/settings/hide-fastfetch && echo 1 || echo 0"]
                                 running: root.isOpen 
                                 stdout: StdioCollector {
                                     onStreamFinished: {
@@ -704,7 +704,7 @@ PanelWindow {
                             }
                             onClicked: {
                                 if (!ready) return;
-                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-toggle-fastfetch"])
+                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-toggle-fastfetch"])
                             }
                         }
                         Item { implicitWidth: 28 } 
@@ -715,15 +715,15 @@ PanelWindow {
                         Layout.fillWidth: true
                         Text { text: "Sidepad"; color: Theme.on_background; font.family: Theme.fontFamily; font.pixelSize: 16 }
                         Item { Layout.fillWidth: true }
-                        ML4WSwitch { 
+                        AppSwitch { 
                             id: sidepadSwitch
                             onClicked: {
                                 if (checked) {
                                     console.log("Launching sidebar...")
-                                    Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-sidepad --init"])
+                                    Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-sidepad --init"])
                                 } else {
                                     console.log("Stopping sidebar...")
-                                    Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-sidepad --kill"])
+                                    Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-sidepad --kill"])
                                 }
                             }
                         }
@@ -737,11 +737,11 @@ PanelWindow {
                                 padding: 8
                                 
                                 background: Rectangle { color: Theme.background; border.color: Theme.primary; border.width: 1; radius: 8 }
-                                ML4WMenuItem { text: "Select Sidepad"; onClicked: {
-                                        Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-sidepad --select"])
+                                AppMenuItem { text: "Select Sidepad"; onClicked: {
+                                        Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-sidepad --select"])
                                     } 
                                 }
-                                ML4WMenuItem { text: "Open Sidepad Folder"; onClicked: {
+                                AppMenuItem { text: "Open Sidepad Folder"; onClicked: {
                                         Quickshell.execDetached(["nautilus", Quickshell.env("HOME") + "/.config/sidepad/pads"])
                                     } 
                                 }
@@ -760,7 +760,7 @@ PanelWindow {
                             iconTxt: ""
                             onClicked: {
                                 root.isOpen = false
-                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-wallpaper-app"])
+                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/scripts/dot-wallpaper-app"])
                             }
                         }
                     }
@@ -774,7 +774,7 @@ PanelWindow {
                             iconTxt: ""
                             onClicked: {
                                 root.isOpen = false
-                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/themes/themes.sh"])
+                                Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/dotfiles-settings/themes/themes.sh"])
                             }
                         }
                         SettingsWheel {
@@ -787,17 +787,17 @@ PanelWindow {
                                 padding: 8
                                 
                                 background: Rectangle { color: Theme.background; border.color: Theme.primary; border.width: 1; radius: 8 }
-                                ML4WMenuItem { text: "Set GTK Theme"; onClicked: {
+                                AppMenuItem { text: "Set GTK Theme"; onClicked: {
                                         root.isOpen = false
                                         Quickshell.execDetached(["nwg-look"])
                                     } 
                                 }
-                                ML4WMenuItem { text: "Set QT Theme"; onClicked: {
+                                AppMenuItem { text: "Set QT Theme"; onClicked: {
                                         root.isOpen = false
                                         Quickshell.execDetached(["qt6ct"])
                                     }
                                 }
-                                ML4WMenuItem { text: "Refresh GTK Theme"; onClicked: {
+                                AppMenuItem { text: "Refresh GTK Theme"; onClicked: {
                                         root.isOpen = false
                                         Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/hypr/scripts/gtk.sh"])
                                     } 

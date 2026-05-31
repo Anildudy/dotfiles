@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-DOTFILES_DIR="$HOME/.mydotfiles/com.ml4w.dotfiles.stable"
+DOTFILES_DIR="$HOME/.mydotfiles/dotfiles"
 
 echo ":: Installing packages..."
 sudo pacman -S --needed - < "$DOTFILES_DIR/pkglist.txt"
@@ -24,8 +24,8 @@ ln -sf "$DOTFILES_DIR/.config/gtk-4.0" "$HOME/.config/gtk-4.0"
 ln -sf "$DOTFILES_DIR/.config/hypr" "$HOME/.config/hypr"
 ln -sf "$DOTFILES_DIR/.config/kitty" "$HOME/.config/kitty"
 ln -sf "$DOTFILES_DIR/.config/matugen" "$HOME/.config/matugen"
-ln -sf "$DOTFILES_DIR/.config/ml4w" "$HOME/.config/ml4w"
-ln -sf "$DOTFILES_DIR/.config/ml4w-dotfiles-settings" "$HOME/.config/ml4w-dotfiles-settings"
+ln -sf "$DOTFILES_DIR/.config/dotfiles-settings" "$HOME/.config/dotfiles-settings"
+ln -sf "$DOTFILES_DIR/.config/dotfiles-settings-app" "$HOME/.config/dotfiles-settings-app"
 ln -sf "$DOTFILES_DIR/.config/nwg-dock-hyprland" "$HOME/.config/nwg-dock-hyprland"
 ln -sf "$DOTFILES_DIR/.config/ohmyposh" "$HOME/.config/ohmyposh"
 ln -sf "$DOTFILES_DIR/.config/qt6ct" "$HOME/.config/qt6ct"
