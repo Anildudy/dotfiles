@@ -5,7 +5,17 @@ DOTFILES_DIR="$HOME/.mydotfiles/dotfiles"
 
 echo ":: Installing packages..."
 sudo pacman -S --needed - < "$DOTFILES_DIR/pkglist.txt"
-yay -S --needed - < "$DOTFILES_DIR/pkglist-aur.txt"
+
+# Bootstrap yay if not installed (needed for AUR packages)
+if ! command -v yay &>/dev/null; then
+  echo ":: Installing yay (AUR helper)..."
+  sudo pacman -S --needed --noconfirm git base-devel
+  git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+  (cd /tmp/yay-bin && makepkg -si --noconfirm)
+  rm -rf /tmp/yay-bin
+fi
+
+yay -S --needed --noconfirm - < "$DOTFILES_DIR/pkglist-aur.txt"
 
 echo ":: Creating symlinks..."
 ln -sf "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
