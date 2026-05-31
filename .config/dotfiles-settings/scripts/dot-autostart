@@ -43,6 +43,10 @@ info "App Dotfiles Settings started"
 qs -p $HOME/.config/quickshell/overview &
 info "Quickshell Overview started"
 
+# Start Quickshell PowerApp
+qs -p $HOME/.config/quickshell/PowerApp/PowerWindow.qml &
+info "Quickshell PowerApp started"
+
 # Start App Welcome App
 if [ ! -f $HOME/.cache/dotfiles-welcome-autostart ]; then
     sleep 3
