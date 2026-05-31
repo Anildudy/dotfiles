@@ -50,4 +50,8 @@ ln -sf "$DOTFILES_DIR/.config/wlogout" "$HOME/.config/wlogout"
 ln -sf "$DOTFILES_DIR/.config/xsettingsd" "$HOME/.config/xsettingsd"
 ln -sf "$DOTFILES_DIR/.config/zshrc" "$HOME/.config/zshrc"
 
+echo ":: Enabling services..."
+sudo systemctl enable sddm
+sudo systemctl enable NetworkManager
+
 echo ":: Done! Reboot to apply."
