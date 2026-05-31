@@ -1,0 +1,5 @@
+grimblast-git
+python-pywalfox
+python-screeninfo
+yay-bin
+yay-bin-debug
