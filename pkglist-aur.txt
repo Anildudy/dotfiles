@@ -1,9 +1,5 @@
-quickshell
-walker
-matugen
-gum
-ohmyposh
 grimblast-git
+hyprsysteminfo
+ohmyposh
 python-pywalfox
 python-screeninfo
-waypaper
