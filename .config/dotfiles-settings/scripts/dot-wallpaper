@@ -242,9 +242,9 @@ fi
 info "Waybar reloaded"
 
 # Reload nwg-dock-hyprland
-nohup bash -c "$HOME/.config/nwg-dock-hyprland/launch.sh" > /dev/null 2>&1 &
-disown
-info "nwg-dock-hyprland reloaded"
+# nohup bash -c "$HOME/.config/nwg-dock-hyprland/launch.sh" > /dev/null 2>&1 &
+# disown
+# info "nwg-dock-hyprland reloaded"
 
 # Update Pywalfox
 if type pywalfox >/dev/null 2>&1; then
