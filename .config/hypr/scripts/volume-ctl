@@ -1,0 +1,17 @@
+#!/bin/bash
+action="${1:-raise}"
+
+# Find running sink, fall back to default
+sink=$(pactl list short sinks | grep RUNNING | head -1 | awk '{print $1}')
+
+# If there's a running sink that's not the default, make it default first
+if [ -n "$sink" ]; then
+  pactl set-default-sink "$sink" 2>/dev/null
+fi
+
+# Now swayosd controls the right sink + shows OSD
+case "$action" in
+  raise)       swayosd-client --output-volume raise ;;
+  lower)       swayosd-client --output-volume lower ;;
+  mute-toggle) swayosd-client --output-volume mute-toggle ;;
+esac
